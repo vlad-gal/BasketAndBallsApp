@@ -1,4 +1,4 @@
-package by.halatsevich.entity;
+package by.halatsevich.day3.entity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,12 +6,12 @@ import java.util.List;
 
 public class Basket {
     private double weightCapacity;
-    private List<Ball> balls;
+    private double volume;
+    private List<Ball> balls = new ArrayList<>();
 
-    public Basket(double weightCapacity) {
-
+    public Basket(double weightCapacity, double volume) {
         this.weightCapacity = weightCapacity;
-        this.balls = new ArrayList<>();
+        this.volume = volume;
     }
 
     public double getWeightCapacity() {
@@ -22,12 +22,24 @@ public class Basket {
         this.weightCapacity = weightCapacity;
     }
 
-    public List<Ball> getBalls() {
-        return balls;
+    public double getVolume() {
+        return volume;
     }
 
-    public void setBalls(List<Ball> balls) {
-        this.balls = balls;
+    public void setVolume(double volume) {
+        this.volume = volume;
+    }
+
+    public boolean addBall(Ball ball) {
+        return balls.add(ball);
+    }
+
+    public Ball getBall(int index) {
+        return balls.get(index);
+    }
+
+    public int size() {
+        return balls.size();
     }
 
     @Override
@@ -43,7 +55,10 @@ public class Basket {
         }
         Basket basket = (Basket) o;
 
-        if (Double.compare(this.weightCapacity, basket.weightCapacity) != 0) {
+        if (Double.compare(weightCapacity, basket.weightCapacity) != 0) {
+            return false;
+        }
+        if (Double.compare(volume, basket.volume) != 0) {
             return false;
         }
         return balls.equals(basket.balls);
@@ -54,16 +69,14 @@ public class Basket {
         int prime = 31;
         int result = 1;
         result = prime * result + Double.hashCode(weightCapacity);
+        result = prime * result + Double.hashCode(volume);
         result = prime * result + balls.hashCode();
         return result;
     }
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Basket {");
-        sb.append("weight capacity = " + weightCapacity);
-        sb.append(", balls = " + Arrays.toString(balls.toArray()));
-        sb.append("}");
-        return sb.toString();
+        return String.format("Basket {weight capacity = %.3f, volume = %.3f, balls = %s}", weightCapacity, volume,
+                Arrays.toString(balls.toArray()));
     }
 }

@@ -1,13 +1,23 @@
-package by.halatsevich.entity;
+package by.halatsevich.day3.entity;
 
 
 public class Ball {
     private double weight;
+    private double volume;
     private Color color;
 
-    public Ball(double weight, Color color) {
+    public Ball(double weight, double volume, Color color) {
         this.weight = weight;
+        this.volume = volume;
         this.color = color;
+    }
+
+    public double getVolume() {
+        return volume;
+    }
+
+    public void setVolume(double volume) {
+        this.volume = volume;
     }
 
     public double getWeight() {
@@ -40,10 +50,13 @@ public class Ball {
 
         Ball ball = (Ball) o;
 
-        if (Double.compare(this.weight, ball.weight) != 0) {
+        if (Double.compare(weight, ball.weight) != 0) {
             return false;
         }
-        return this.color.equals(ball.color);
+        if (Double.compare(volume, ball.volume) != 0) {
+            return false;
+        }
+        return color.equals(ball.color);
     }
 
     @Override
@@ -51,16 +64,14 @@ public class Ball {
         int prime = 31;
         int result = 1;
         result = prime * result + Double.hashCode(weight);
+        result = prime * result + Double.hashCode(volume);
         result = prime * result + color.hashCode();
         return result;
     }
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Ball {");
-        sb.append(String.format("weight = %.5f", weight));
-        sb.append(", color = " + color);
-        sb.append('}');
-        return sb.toString();
+        return String.format("Ball {weight = %.3f, volume = %.3f, color = %s}",
+                weight, volume, color.getColorName());
     }
 }
