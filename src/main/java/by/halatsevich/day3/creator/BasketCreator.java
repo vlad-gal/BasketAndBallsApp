@@ -7,9 +7,24 @@ import by.halatsevich.day3.validator.BasketValidator;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class to create baskets
+ *
+ * @author Vladislav Halatsevich
+ */
 public class BasketCreator {
 
+    /**
+     * Create list of baskets
+     *
+     * @param basketsData list of data to create list of baskets
+     * @return list of baskets
+     * @throws InputDataException if data to create baskets are null or empty
+     */
     public List<Basket> createAllBaskets(List<double[]> basketsData) throws InputDataException {
+        if (basketsData == null) {
+            throw new InputDataException("Data to create baskets are null");
+        }
         if (basketsData.isEmpty()) {
             throw new InputDataException("List with data to create baskets is empty");
         }
@@ -20,9 +35,20 @@ public class BasketCreator {
         return baskets;
     }
 
+    /**
+     * Create a basket
+     *
+     * @param basketData data to create basket
+     * @return basket
+     * @throws InputDataException if data to create basket are null or count of params are less or more than 2,
+     *                            or data incorrect
+     */
     public Basket createBasket(double[] basketData) throws InputDataException {
-        if (basketData.length != 2 || basketData == null) {
-            throw new InputDataException("Count of parameters is less or more than 2, or there is no parameters at all");
+        if (basketData == null) {
+            throw new InputDataException("Data to create basket are null");
+        }
+        if (basketData.length != 2) {
+            throw new InputDataException("Count of parameters is less or more than 2");
         }
         double weightCapacity = basketData[0];
         double basketVolume = basketData[1];

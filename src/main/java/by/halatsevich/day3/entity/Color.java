@@ -1,5 +1,10 @@
 package by.halatsevich.day3.entity;
 
+/**
+ * Enumeration color with name
+ *
+ * @author Vladislav Halatsevich
+ */
 public enum Color {
     BLUE("Blue"), GREEN("Green"), RED("Red"), YELLOW("Yellow"), WHITE("White");
 

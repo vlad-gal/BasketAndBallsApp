@@ -4,6 +4,7 @@ import by.halatsevich.day3.entity.Ball;
 import by.halatsevich.day3.entity.Color;
 import by.halatsevich.day3.exception.InputDataException;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
@@ -14,16 +15,17 @@ import static org.testng.Assert.*;
 
 public class BallCreatorTest {
     BallCreator creator;
+    List<double[]> dataToBalls;
 
     @BeforeClass
     public void setUp() throws Exception {
         creator = new BallCreator();
+        dataToBalls = Arrays.asList(new double[]{1.0, 0.2, 1.0}, new double[]{4.0, 1.4, 2.0});
     }
 
     @Test
     public void testCreateAllBallsSuccess() {
         try {
-            List<double[]> dataToBalls = Arrays.asList(new double[]{1.0, 0.2, 1.0}, new double[]{4.0, 1.4, 2.0});
             List<Ball> actual = creator.createAllBalls(dataToBalls);
             List<Ball> expected = Arrays.asList(new Ball(1.0, 0.2, Color.GREEN), new Ball(4.0, 1.4, Color.RED));
             assertEquals(actual, expected);
@@ -35,13 +37,18 @@ public class BallCreatorTest {
     @Test
     public void testCreateAllBallsFailure() {
         try {
-            List<double[]> dataToBalls = Arrays.asList(new double[]{1.0, 0.2, 1.0}, new double[]{4.0, 1.4, 2.0});
             List<Ball> actual = creator.createAllBalls(dataToBalls);
             List<Ball> expected = Arrays.asList(new Ball(1.1, 1.2, Color.RED), new Ball(4.0, 1.4, Color.RED));
             assertNotEquals(actual, expected);
         } catch (InputDataException e) {
             fail("Something goes wrong");
         }
+    }
+
+    @Test(expectedExceptions = InputDataException.class,
+            expectedExceptionsMessageRegExp = "Data to create balls are null")
+    public void testCreateAllBallsNullDataExceptionMessage() throws InputDataException {
+        creator.createAllBalls(null);
     }
 
     @Test(expectedExceptions = InputDataException.class,
@@ -73,14 +80,39 @@ public class BallCreatorTest {
     }
 
     @Test(expectedExceptions = InputDataException.class,
-            expectedExceptionsMessageRegExp = "Count of parameters is less or more than 3, or there is no parameters at all")
-    public void testCreateBallEmptyDataExceptionMessage() throws InputDataException {
-        creator.createBall(new double[4]);
+            expectedExceptionsMessageRegExp = "Data to create ball are null")
+    public void testCreateBallNullDataExceptionMessage() throws InputDataException {
+        creator.createBall(null);
+    }
+
+    @DataProvider(name = "incorrectCount")
+    public Object[][] createIncorrectCountParams() {
+        return new Object[][]{
+                {new double[0]}, {new double[1]}, {new double[2]}, {new double[4]}
+        };
     }
 
     @Test(expectedExceptions = InputDataException.class,
-            expectedExceptionsMessageRegExp = "Invalid data to create ball")
-    public void testCreateBallInvalidDataExceptionMessage() throws InputDataException {
-        creator.createBall(new double[]{45, 3548, -4});
+            expectedExceptionsMessageRegExp = "Count of parameters is less or more than 3",
+            dataProvider = "incorrectCount")
+    public void testCreateBallIncorrectCountParamsExceptionMessage(double[] data) throws InputDataException {
+        creator.createBall(data);
+    }
+
+    @DataProvider(name = "incorrectParams")
+    public Object[][] createIncorrectParams() {
+        return new Object[][]{
+                {new double[]{0, 0.1, 1}},
+                {new double[]{0.1, 87, 4}},
+                {new double[]{1, 1, 6}},
+                {new double[]{-7, 8987, 30}}
+        };
+    }
+
+    @Test(expectedExceptions = InputDataException.class,
+            expectedExceptionsMessageRegExp = "Invalid data to create ball",
+            dataProvider = "incorrectParams")
+    public void testCreateBallInvalidDataExceptionMessage(double[] data) throws InputDataException {
+        creator.createBall(data);
     }
 }

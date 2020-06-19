@@ -1,5 +1,10 @@
 package by.halatsevich.day3.exception;
 
+/**
+ * Custom exception
+ *
+ * @author Vladislav Halatsevich
+ */
 public class InputDataException extends Exception {
     public InputDataException() {
     }

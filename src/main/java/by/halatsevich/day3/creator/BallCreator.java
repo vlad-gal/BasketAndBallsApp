@@ -9,9 +9,24 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * Class to create balls
+ *
+ * @author Vladislav Halatsevich
+ */
 public class BallCreator {
 
+    /**
+     * Create list of balls
+     *
+     * @param ballsData list of data to create list of balls
+     * @return list of balls
+     * @throws InputDataException if data to create balls are null or empty
+     */
     public List<Ball> createAllBalls(List<double[]> ballsData) throws InputDataException {
+        if (ballsData == null) {
+            throw new InputDataException("Data to create balls are null");
+        }
         if (ballsData.isEmpty()) {
             throw new InputDataException("List with data to create balls is empty");
         }
@@ -28,9 +43,20 @@ public class BallCreator {
         return balls;
     }
 
+    /**
+     * Create a ball
+     *
+     * @param ballData data to create ball
+     * @return ball
+     * @throws InputDataException if data to create ball are null or count of params are less or more than 3,
+     *                            or data incorrect
+     */
     public Ball createBall(double[] ballData) throws InputDataException {
-        if (ballData.length != 3 || ballData == null) {
-            throw new InputDataException("Count of parameters is less or more than 3, or there is no parameters at all");
+        if (ballData == null) {
+            throw new InputDataException("Data to create ball are null");
+        }
+        if (ballData.length != 3) {
+            throw new InputDataException("Count of parameters is less or more than 3");
         }
         double ballWeight = ballData[0];
         double ballVolume = ballData[1];

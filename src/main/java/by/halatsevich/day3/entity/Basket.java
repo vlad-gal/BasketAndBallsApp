@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Simple basket with weight capacity, volume and list of balls as parameters
+ *
+ * @author Vladislav Halatsevich
+ */
 public class Basket {
     private double weightCapacity;
     private double volume;

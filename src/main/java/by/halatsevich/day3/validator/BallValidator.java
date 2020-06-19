@@ -2,6 +2,11 @@ package by.halatsevich.day3.validator;
 
 import by.halatsevich.day3.entity.Color;
 
+/**
+ * Validator for balls data validation checks
+ *
+ * @author Vladislav Halatsevich
+ */
 public class BallValidator {
     private static final double MIN_WEIGHT = 0.1;
     private static final double MAX_WEIGHT = 5;

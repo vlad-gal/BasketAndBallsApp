@@ -1,6 +1,10 @@
 package by.halatsevich.day3.entity;
 
-
+/**
+ * Simple ball with weight, volume and color as parameters
+ *
+ * @author Vladislav Halatsevich
+ */
 public class Ball {
     private double weight;
     private double volume;

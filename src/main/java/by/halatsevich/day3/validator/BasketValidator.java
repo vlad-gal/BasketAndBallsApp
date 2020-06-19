@@ -1,5 +1,10 @@
 package by.halatsevich.day3.validator;
 
+/**
+ * Validator for baskets data validation checks
+ *
+ * @author Vladislav Halatsevich
+ */
 public class BasketValidator {
     private static final double MIN_WEIGHT_CAPACITY = 2;
     private static final double MAX_WEIGHT_CAPACITY = 200;
